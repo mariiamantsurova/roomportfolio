@@ -4,4 +4,9 @@ export default [
 		type: "glbModel",
 		path: "/models/room.glb",
 	},
+	{
+		name: "screen",
+		type: "videoTexture",
+		path: "/textures/video.mp4",
+	},
 ];
