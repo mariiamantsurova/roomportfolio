@@ -7,10 +7,11 @@ import Camera from "./Camera";
 import Rendered from "./Rendered";
 
 import World from "./World/World";
+import Theme from "./Theme";
 import assets from "../utils/assets";
 export default class Experience {
   static instance;
-  constructor(canvas) {
+  constructor(canvas, toggleBtn, toggleCircle) {
     if (Experience.instance) {
       return Experience.instance;
     } else {
@@ -24,6 +25,8 @@ export default class Experience {
     this.renderer = new Rendered();
     this.resources = new Resources(assets);
     this.world = new World();
+    this.theme = new Theme(toggleBtn, toggleCircle);
+
     this.time.on("update", () => {
       this.update();
     });

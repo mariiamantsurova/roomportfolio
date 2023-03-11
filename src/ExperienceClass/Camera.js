@@ -25,41 +25,35 @@ export default class Camera {
   }
 
   createOrthographicCamera() {
-    this.frustrum = 5;
-    this.orthogrphicCamera = new THREE.OrthographicCamera(
-      (-this.sizes.aspect * this.sizes.frustrum) / 2,
-      (this.sizes.aspect * this.sizes.frustrum) / 2,
-      -this.sizes.frustrum / 2,
-      -100,
-      100
+    this.orthographicCamera = new THREE.OrthographicCamera(
+      (-this.sizes.aspect * this.sizes.frustrum) / 4,
+      (this.sizes.aspect * this.sizes.frustrum) / 4,
+      this.sizes.frustrum / 4,
+      -this.sizes.frustrum / 4,
+      -50,
+      50
     );
-    this.scene.add(this.orthogrphicCamera);
-    // grid helper
-    const size = 10;
-    const divisions = 10;
-    const gridHelper = new THREE.GridHelper(size, divisions);
-    this.scene.add(gridHelper);
-    //axes
-    const axesHelper = new THREE.AxesHelper(10);
-    this.scene.add(axesHelper);
+    this.orthographicCamera.rotation.x = -Math.PI / 6;
+
+    this.scene.add(this.orthographicCamera);
   }
   setOrbitControls() {
     this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
     this.controls.enableDamping = true;
-    this.controls.enableZoom = true;
+    this.controls.enableZoom = false;
   }
   resize() {
     // Update Perspective Camera on resize
     this.perspectiveCamera.aspect = this.scene.aspect;
     this.perspectiveCamera.updateProjectionMatrix();
     // Update Orthogtraphic Camera on resize
-    this.orthogrphicCamera.left =
+    this.orthographicCamera.left =
       (-this.sizes.aspect * this.sizes.frustrum) / 2;
-    this.orthogrphicCamera.right =
+    this.orthographicCamera.right =
       (this.sizes.aspect * this.sizes.frustrum) / 2;
-    this.orthogrphicCamera.top = this.sizes.frustrum / 2;
-    this.orthogrphicCamera.bottom = -this.sizes.frustrum / 2;
-    this.orthogrphicCamera.updateProjectionMatrix();
+    this.orthographicCamera.top = this.sizes.frustrum / 2;
+    this.orthographicCamera.bottom = -this.sizes.frustrum / 2;
+    this.orthographicCamera.updateProjectionMatrix();
   }
   update() {
     this.controls.update();
